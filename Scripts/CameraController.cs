@@ -13,12 +13,23 @@ namespace BikeSystem
   {
 
     public Transform[] target;
+
     public SelectControlle select;
 
+    public bool useSelect;
 
+    int index;
     void Update()
     {
-      transform.position = target[select.index].position;
+      if (useSelect)
+      {
+        index = select.index;
+      }
+      else
+      {
+        index = 0;
+      }
+      transform.position = target[index].position;
       transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, target[select.index].localEulerAngles.y, transform.localEulerAngles.z);
     }
   }

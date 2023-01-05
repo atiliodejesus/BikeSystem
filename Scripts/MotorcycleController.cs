@@ -63,7 +63,6 @@ namespace BikeSystem.controller
 
     void Update()
     {
-
       UpdatePos(frontWheel, t_wheelF);
       UpdatePos(rearWheel, t_wheelR);
       Tensor();
