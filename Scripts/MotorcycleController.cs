@@ -214,7 +214,7 @@ namespace BikeSystem.controller
 
 
     //Função que controla situações de acidente da moto/bike
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collision other)
     {
       if (ActualVelocity >= 60 || (transform.rotation.x > 90 || transform.rotation.x < -90))
       {

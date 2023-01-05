@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
 public class ControlOfIn : MonoBehaviour
 {
-  public GameObject[] toActive;
-  public GameObject[] toDesative;
+  public UnityEvent toActive;
+  public UnityEvent toDesative;
+  public GameObject player;
+  public Transform target;
   public bool inTrigger;
 
   bool inVehicle;
@@ -15,27 +17,15 @@ public class ControlOfIn : MonoBehaviour
     {
       if (Input.GetKey("f") && !inVehicle)
       {
-        for (int t = 0; t < toActive.Length; t++)
-        {
-          toActive[t].SetActive(true);
-        }
-        for (int t = 0; t < toDesative.Length; t++)
-        {
-          toDesative[t].SetActive(false);
-        }
+        toActive.Invoke();
         inVehicle = true;
+        inTrigger = false;
       }
     }
     if (Input.GetKey("g") && inVehicle)
     {
-      for (int t = 0; t < toActive.Length; t++)
-      {
-        toActive[t].SetActive(false);
-      }
-      for (int t = 0; t < toDesative.Length; t++)
-      {
-        toDesative[t].SetActive(true);
-      }
+      toDesative.Invoke();
+      player.transform.position = target.position;
       inVehicle = false;
     }
   }
