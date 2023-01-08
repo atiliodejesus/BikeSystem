@@ -84,7 +84,6 @@ namespace BikeSystem.controller
       wheel.GetWorldPose(out pos, out quaternion);
       wheelTrans.position = pos;
       wheelTrans.rotation = quaternion;
-
     }
 
     //Função que controla o movimento da moto/bike
@@ -214,9 +213,9 @@ namespace BikeSystem.controller
 
 
     //Função que controla situações de acidente da moto/bike
-    private void OnTriggerEnter(Collision other)
+    private void OnCollisionEnter()
     {
-      if (ActualVelocity >= 60 || (transform.rotation.x > 90 || transform.rotation.x < -90))
+      if ((transform.rotation.x > 90 || transform.rotation.x < -90))
       {
         hit = true;
         rigidbody.constraints = RigidbodyConstraints.None;
