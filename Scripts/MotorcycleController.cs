@@ -23,7 +23,7 @@ namespace BikeSystem.controller
     public float ActualVelocity;
 
 
-    Rigidbody rigidbody;
+    [HideInInspector] public Rigidbody rigidbody;
 
     float maxInclination;
     float limitBike = 50;
@@ -167,6 +167,8 @@ namespace BikeSystem.controller
         }
       }
     }
+
+
     private void LerpSteerDecrementalL()
     {
       if (Input.GetAxis("Horizontal") == 0 || Input.GetAxis("Horizontal") > 0)
@@ -198,11 +200,11 @@ namespace BikeSystem.controller
     }
     void LerpSteerIncrementalL()
     {
-      if (Input.GetAxis("Horizontal") < 0 && ActualVelocity >= 5)
+      if (Input.GetAxis("Horizontal") < 0 & ActualVelocity >= 5)
       {
         if (smoothSteerL < 1)
         {
-          smoothSteerL = smoothSteerL + 0.02f;
+          smoothSteerL = smoothSteerL + 0.1f;
         }
         else if (smoothSteerL >= 1f)
         {

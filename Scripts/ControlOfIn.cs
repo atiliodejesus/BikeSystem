@@ -10,26 +10,43 @@ public class ControlOfIn : MonoBehaviour
   public Transform target;
   public bool inTrigger;
 
-  bool inVehicle;
+  public bool wait;
+  public bool wait1;
+  [HideInInspector] public bool inVehicle;
   void Update()
   {
     if (inTrigger)
     {
-      if (Input.GetKey("f") && !inVehicle)
+      if (Input.GetKey("f") && !inVehicle && !wait)
       {
-        toActive.Invoke();
-        inVehicle = true;
-        inTrigger = false;
+        StartCoroutine("LetIn");
+        wait = true;
       }
     }
-    if (Input.GetKey("g") && inVehicle)
+    if (Input.GetKey("g") && inVehicle && !wait1)
     {
-      toDesative.Invoke();
-      player.transform.position = target.position;
-      inVehicle = false;
+      StartCoroutine("LetOut");
     }
   }
 
+  IEnumerator LetIn()
+  {
+    yield return new WaitForSeconds(1.5f);
+    toActive.Invoke();
+    inVehicle = true;
+    inTrigger = false;
+    yield return new WaitForSeconds(0.01f);
+    wait = false;
+  }
+  IEnumerator LetOut()
+  {
+    yield return new WaitForSeconds(1.5f);
+    toDesative.Invoke();
+    player.transform.position = target.position;
+    inVehicle = false;
+    yield return new WaitForSeconds(0.01f);
+    wait1 = false;
+  }
 
   private void OnTriggerEnter(Collider other)
   {
